@@ -75,8 +75,7 @@ static u32 dump_adsp_internal_mem(struct adsp_priv *pdata,
 				  void *buf, size_t size)
 {
 	u32 clk_cfg = 0, uart_cfg = 0, n = 0;
-	u32 clk_mask = ADSP_CLK_UART_EN | ADSP_CLK_CORE_0_EN |
-		       ADSP_CLK_CORE_1_EN;
+	u32 clk_mask = ADSP_CLK_UART_EN | ADSP_CLK_CORE_0_EN;
 	u32 uart_mask = ADSP_UART_RST_N | ADSP_UART_BCLK_CG;
 
 	adsp_enable_clock();
@@ -230,7 +229,6 @@ void adsp_aed_worker(struct work_struct *ws)
 #if IS_ENABLED(CONFIG_PM_WAKELOCKS)
 	__pm_stay_awake(ctrl->wakeup_lock);
 #endif
-
 	/* stop adsp, set reset state */
 	for (cid = 0; cid < ADSP_CORE_TOTAL; cid++) {
 		pdata = get_adsp_core_by_id(cid);
@@ -395,8 +393,7 @@ EXPORT_SYMBOL(get_adsp_misc_buffer);
 void get_adsp_aee_buffer(unsigned long *vaddr, unsigned long *size)
 {
 	u32 clk_cfg = 0, uart_cfg = 0, n = 0;
-	u32 clk_mask = ADSP_CLK_UART_EN | ADSP_CLK_CORE_0_EN |
-		       ADSP_CLK_CORE_1_EN;
+	u32 clk_mask = ADSP_CLK_UART_EN | ADSP_CLK_CORE_0_EN;
 	u32 uart_mask = ADSP_UART_RST_N | ADSP_UART_BCLK_CG;
 	struct adsp_priv *pdata = NULL;
 	void *buf = adsp_ke_buffer;
